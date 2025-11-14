@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+  /* ================================
+   Elegant Custom Scrollbar
+================================ */
+.skills-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.skills-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.35);
+  border-radius: 20px;
+}
+
+.skills-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.55);
+}
+
+.skills-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Dark mode */
+.dark .skills-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(180, 180, 180, 0.25);
+}
+
+.dark .skills-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 180, 180, 0.45);
+}
+/* Projects Scrollbar */
+.projects-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.projects-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.35);
+  border-radius: 20px;
+}
+
+.projects-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.55);
+}
+
+.projects-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* DARK MODE */
+.dark .projects-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.25);
+}
+
+.dark .projects-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 200, 200, 0.45);
+}
+
+}
