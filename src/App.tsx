@@ -4,6 +4,18 @@ import { Github, Linkedin, Mail, Download, ExternalLink, Moon, Sun, MapPin } fro
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import Profil from './assets/profil.jpg'
+import TomatoVision from './assets/tomato-vision.png'
+import Tableau from './assets/tableau.png'
+import Excel from './assets/excel.png'
+import ChurnCovid from './assets/churn-covid.JPG'
+import Laravel from './assets/laravel.jpeg'
+import Rockpaperscissor from './assets/rockpaperscissor.png'
+import Symphonia from './assets/symphonia.JPG'
+import Tailwind from './assets/tailwind.jpeg'
+import YOLO from './assets/yolo.jpeg'
+
+
 
 // DATA
 const PROFILE = {
@@ -73,7 +85,7 @@ const TOOLS = [
   { 
     name: "YOLOv5",
     group: "Computer Vision",
-    icon: "/static/media/YOLO.jpeg"  // kalau kamu punya logo sendiri
+    icon: YOLO  // kalau kamu punya logo sendiri
   },
 
   // BI Tools
@@ -85,7 +97,7 @@ const TOOLS = [
   {
     name: "Tableau",
     group: "BI / Dashboard",
-    icon: "/static/media/Tableau.png"
+    icon: Tableau
   },
   {
     name: "Metabase",
@@ -95,7 +107,7 @@ const TOOLS = [
   {
     name: "Excel for Data",
     group: "Spreadsheet",
-    icon: "/static/media/Excel.png"
+    icon: Excel
   },
 
   // Database & Version Control
@@ -113,12 +125,12 @@ const TOOLS = [
   {
   name: "Laravel",
   group: "Backend Framework",
-  icon: "/static/media/laravel.jpeg"
+  icon: Laravel
   },
   {
     name: "Tailwind CSS",
     group: "CSS Framework",
-    icon: "/static/media/tailwind.jpeg"
+    icon: Tailwind
   },
   {
     name: "Vite",
@@ -257,8 +269,7 @@ const PROJECTS = [
     },
     images: [
       // Ganti dengan screenshot kamu sendiri kalau sudah ada di /public
-      "/static/media/symphonia.jpg"
-      ,
+      Symphonia
     ],
   },
   {
@@ -272,7 +283,7 @@ const PROJECTS = [
       repo: 'https://github.com/dwikyrf/TomatoVision/tree/biji',
     },
     images: [
-      '/static/media/TomatoVision.png',
+    TomatoVision
     ],
   },
   {
@@ -287,7 +298,7 @@ const PROJECTS = [
       repo: 'https://colab.research.google.com/drive/154XCQQeRNoi7RgzgbdMRUeFxZyrpagdo?usp=sharing',
     },
     images: [
-      '/static/media/ChurnCovid.jpg',
+      ChurnCovid
     ],
   },
   {
@@ -302,7 +313,7 @@ const PROJECTS = [
       repo: 'https://colab.research.google.com/drive/1atrxHyBL_w1RyI8PdVKnArJTdh7QxhfV',
     },
     images: [
-      '/static/media/rockpaperscissor.png',
+      Rockpaperscissor
     ],
   },
 ]
@@ -438,7 +449,7 @@ const handleNextCert = () => {
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="md:justify-self-end">
             <div className="aspect-video w-full md:w-[520px] rounded-2xl overflow-hidden border dark:border-zinc-800 shadow">
-              <img src="/static/media/Profil.jpg" alt="Cover" className="w-full h-full object-cover"/>
+              <img src={Profil} alt="Cover" className="w-full h-full object-cover"/>
             </div>
           </motion.div>
         </div>
