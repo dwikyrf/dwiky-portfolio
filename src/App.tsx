@@ -14,6 +14,7 @@ import Rockpaperscissor from './assets/rockpaperscissor.png'
 import Symphonia from './assets/symphonia.JPG'
 import Tailwind from './assets/tailwind.jpeg'
 import YOLO from './assets/yolo.jpeg'
+import GadingBattery from './assets/gading-battery.JPG'
 
 
 
@@ -29,7 +30,7 @@ const PROFILE = {
     github: 'https://github.com/dwikyrf',
     linkedin: 'http://www.linkedin.com/in/dwikyrf',
     resumeUrl:
-      'https://drive.google.com/file/d/1wLRHumazcWWv4ouizB3G5IGp1JnMXYyR/view?usp=drive_link',
+      'https://drive.google.com/file/d/1loHnqpuA7fgqPn2F_exDeao_kpUFqswo/view?usp=sharing',
   },
 }
 const TOOLS = [
@@ -248,7 +249,7 @@ const SKILLS = {
 const PROJECTS = [
   {
     title: 'Symphonia — Laravel 11 E-Commerce Platform',
-    year: '2024–2025',
+    year: '2025',
     stack: [
       'Laravel 11',
       'PHP',
@@ -267,28 +268,24 @@ const PROJECTS = [
       demo: 'https://symphonia.siunand.my.id/',
       repo: 'https://github.com/dwikyrf/Symphonia',
     },
-    images: [
-      // Ganti dengan screenshot kamu sendiri kalau sudah ada di /public
-      Symphonia
-    ],
+    images: [Symphonia],
   },
   {
     title: 'TomatoVision — Tomato Disease Analysis',
-    year: '2025',
+    year: '2024',
     stack: ['YOLOv5', 'Python', 'Computer Vision', 'Web Deployment'],
     description:
       'Built a computer vision model to classify tomato leaf diseases using YOLOv5; deployed the model to a website and managed hosting.',
     impact: ['End-to-end ML pipeline from data to deployment'],
     links: {
-      repo: 'https://github.com/dwikyrf/TomatoVision/tree/biji',
+      demo: 'https://tomato-vision.up.railway.app/',
+      repo: 'https://github.com/dwikyrf/tomato-vision',
     },
-    images: [
-    TomatoVision
-    ],
+    images: [TomatoVision],
   },
   {
     title: 'Churn Prediction & COVID-19 Dashboard',
-    year: '2025',
+    year: '2023',
     stack: ['Python', 'SVM', 'Random Forest', 'Google Colab', 'Looker Studio'],
     description:
       'Created ML models (SVM & Random Forest) to predict customer churn and designed targeted dashboards for Indonesian COVID-19 datasets.',
@@ -297,13 +294,11 @@ const PROJECTS = [
       demo: 'https://docs.google.com/presentation/d/12L3c3LfKylXUTnT_gk9K1UBQSiOwu6o9/edit#slide=id.g22cf2c3cb11_0_20',
       repo: 'https://colab.research.google.com/drive/154XCQQeRNoi7RgzgbdMRUeFxZyrpagdo?usp=sharing',
     },
-    images: [
-      ChurnCovid
-    ],
+    images: [ChurnCovid],
   },
   {
     title: 'Image Classification Deployment (RPS & Intel Dataset)',
-    year: '2024',
+    year: '2023',
     stack: ['Python', 'TensorFlow', 'Sequential Model', 'TFLite', 'Google Colab'],
     description:
       'Trained image classifiers for rock–paper–scissors and Intel image datasets; supported on-Colab prediction and exported to TFLite for lightweight usage.',
@@ -312,11 +307,28 @@ const PROJECTS = [
       demo: 'https://colab.research.google.com/drive/1pWXCgrvym-p8yTGmvChHYGTv8Z4IBTFA?usp=sharing',
       repo: 'https://colab.research.google.com/drive/1atrxHyBL_w1RyI8PdVKnArJTdh7QxhfV',
     },
-    images: [
-      Rockpaperscissor
+    images: [Rockpaperscissor],
+  },
+  {
+    title: 'GADING BATTERY – Toko Aki & Oli Payakumbuh',
+    year: '2025',
+    stack: ['React', 'TypeScript', 'Vite', 'Vercel'],
+    description:
+      'Dynamic landing page for GADING BATTERY shop in Payakumbuh, showcasing battery & oil products, services, and WhatsApp / Maps CTA.',
+    impact: [
+      'Responsive landing page using React + TypeScript + Vite',
+      'Brand catalog with slider and logo support',
+      'Light/dark mode, WhatsApp pre-filled CTA, and multiple store locations in Google Maps',
+      'Deployed to Vercel for public access',
     ],
+    links: {
+      demo: 'https://gading-battery.vercel.app/',
+      repo: 'https://github.com/dwikyrf/gading-battery',
+    },
+    images: [GadingBattery], // nanti kalau ada screenshot bisa dimasukkan di sini
   },
 ]
+
 
 
 type SectionProps = { id: string; title: string; children: React.ReactNode }
