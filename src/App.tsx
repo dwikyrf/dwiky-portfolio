@@ -240,7 +240,6 @@ const SKILLS = {
     'Collaboration',
     'Problem Identification',
     'Troubleshooting',
-    'Time Management',
     'Adaptability',
 
   ],
