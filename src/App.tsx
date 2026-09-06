@@ -31,7 +31,7 @@ const PROFILE = {
   summary:
     'I am an Information Systems graduate from Andalas University with a strong interest in data, analytics, and technology. I have developed skills in data analysis, programming, database management, and information systems throughout my academic and professional journey. I currently work as a Data Annotator on an automotive automation project, where I work with visual data and annotation processes to support machine learning and computer vision applications. This experience has strengthened my attention to detail, data quality control, consistency, problem-solving, and understanding of how data is prepared and processed for AI systems. In addition, I have hands-on experience with Python, SQL, Excel, Looker Studio, Power BI, Google BigQuery, and various data and programming tools. I also have experience working on computer vision and machine learning projects, including object detection using YOLO. I am continuously developing my skills in Data Analytics, Data Engineering, Machine Learning, and AI Engineer. I am interested in opportunities where I can contribute to data-driven projects, solve real-world problems, and continue growing as a data professional.',
   contacts: {
-    email: 'dwikyrf@gmail.com',
+    email: 'dwikyrf@  gmail.com',
     github: 'https://github.com/dwikyrf',
     linkedin: 'http://www.linkedin.com/in/dwikyrf',
     resumeUrl:
@@ -453,15 +453,10 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open resume"
-              className="hidden sm:block"
+              className="hidden sm:inline-flex items-center justify-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
-              <Button
-                type="button"
-                className="rounded-xl bg-zinc-900 px-4 shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Resume
-              </Button>
+              <Download className="mr-2 h-4 w-4" />
+              Resume
             </a>
           </div>
         </div>
