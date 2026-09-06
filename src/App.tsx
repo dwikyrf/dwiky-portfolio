@@ -453,10 +453,16 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open resume"
-              className="hidden sm:inline-flex items-center justify-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+              className="hidden sm:block"
             >
-              <Download className="mr-2 h-4 w-4" />
-              Resume
+              <Button
+                type="button"
+                className="rounded-xl bg-zinc-900 text-sm text-white shadow-lg shadow-zinc-900/10 transition-transform group-hover:scale-105 dark:bg-white dark:text-zinc-900"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Resume
+              </Button>
+              
             </a>
           </div>
         </div>
