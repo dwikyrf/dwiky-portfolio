@@ -35,7 +35,7 @@ const PROFILE = {
     github: 'https://github.com/dwikyrf',
     linkedin: 'http://www.linkedin.com/in/dwikyrf',
     resumeUrl:
-      'https://drive.google.com/file/d/1loHnqpuA7fgqPn2F_exDeao_kpUFqswo/view?usp=sharing',
+      'https://drive.google.com/file/d/1m9FUk23PHqgrOADQOX-JavlmZTb8x5hn/view?usp=sharing',
   },
 }
 // CONTACT / RESUME HELPERS
