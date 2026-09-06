@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, Download, ExternalLink, Moon, Sun, MapPin } from 'lucide-react'
+import { Github, Linkedin, Mail, Download, ExternalLink, Moon, Sun, MapPin, ArrowUpRight, BriefcaseBusiness, GraduationCap, Sparkles, Code2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -379,22 +379,21 @@ const DarkModeToggle = () => {
 }
 
 export default function App() {
-  useEffect(() => {
-    if (!PROFILE.contacts.resumeUrl) console.warn('[Portfolio] Missing resumeUrl')
-  }, [])
- // 👉 STATE UNTUK SLIDER PROJECTS
   const [projectIndex, setProjectIndex] = useState(0)
+  const [certIndex, setCertIndex] = useState(0)
+
   const visibleCount = 3
   const totalProjects = PROJECTS.length
+  const totalCerts = CERTS.length
 
   const visibleProjects = React.useMemo(() => {
-    const items = []
-    const maxVisible = Math.min(visibleCount, totalProjects)
-    for (let i = 0; i < maxVisible; i++) {
-      items.push(PROJECTS[(projectIndex + i) % totalProjects])
-    }
-    return items
-  }, [projectIndex])
+    const count = Math.min(visibleCount, totalProjects)
+    return Array.from({ length: count }, (_, i) => {
+      return PROJECTS[(projectIndex + i) % totalProjects]
+    })
+  }, [projectIndex, totalProjects])
+
+  const currentCert = CERTS[certIndex]
 
   const handlePrevProject = () => {
     setProjectIndex((prev) => (prev - 1 + totalProjects) % totalProjects)
@@ -403,422 +402,552 @@ export default function App() {
   const handleNextProject = () => {
     setProjectIndex((prev) => (prev + 1) % totalProjects)
   }
-  
-  const [certIndex, setCertIndex] = useState(0)
-const visibleCertCount = 1
-const totalCerts = CERTS.length
 
-const visibleCerts = React.useMemo(() => {
-  const items = []
-  const maxVisible = Math.min(visibleCertCount, totalCerts)
-  for (let i = 0; i < maxVisible; i++) {
-    items.push(CERTS[(certIndex + i) % totalCerts])
+  const handlePrevCert = () => {
+    setCertIndex((prev) => (prev - 1 + totalCerts) % totalCerts)
   }
-  return items
-}, [certIndex])
 
-const handlePrevCert = () => {
-  setCertIndex((prev) => (prev - 1 + totalCerts) % totalCerts)
-}
-
-const handleNextCert = () => {
-  setCertIndex((prev) => (prev + 1) % totalCerts)
-}
+  const handleNextCert = () => {
+    setCertIndex((prev) => (prev + 1) % totalCerts)
+  }
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-      <header className="sticky top-0 z-50 backdrop-blur border-b dark:border-zinc-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 h-14 flex items-center justify-between">
-          <a href="#home" className="font-semibold tracking-tight">
-            {PROFILE.name}
-          </a>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#tools">Tools</a>
-          <a href="#experience">Experience</a>
-          <a href="#education">Education</a>
-          <a href="#contact">Contact</a>
-        </nav>
+    <div className="min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      {/* Decorative background */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl dark:bg-blue-500/10" />
+        <div className="absolute -right-40 top-[35%] h-96 w-96 rounded-full bg-violet-500/10 blur-3xl dark:bg-violet-500/10" />
+        <div className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-cyan-500/5 blur-3xl" />
+      </div>
 
-          <div className="flex items-center gap-3">
+      {/* NAVBAR */}
+      <header className="sticky top-0 z-50 border-b border-zinc-200/70 bg-white/75 backdrop-blur-xl dark:border-zinc-800/70 dark:bg-zinc-950/75">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <a href="#home" className="group flex items-center gap-2.5 font-bold tracking-tight">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-zinc-900 text-sm text-white shadow-lg shadow-zinc-900/10 transition-transform group-hover:scale-105 dark:bg-white dark:text-zinc-900">
+              DR
+            </span>
+            <span className="hidden sm:block">{PROFILE.name}</span>
+          </a>
+
+          <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-600 md:flex dark:text-zinc-400">
+            {['Projects', 'Skills', 'Experience', 'Education', 'Contact'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="transition-colors hover:text-zinc-950 dark:hover:text-white"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
             <DarkModeToggle />
-            <a href={PROFILE.contacts.resumeUrl} target="_blank" rel="noreferrer">
-              <Button className="rounded-xl">
-                <Download className="mr-2 h-4 w-4" /> Resume
+            <a
+              href={PROFILE.contacts.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:block"
+            >
+              <Button className="rounded-xl bg-zinc-900 px-4 shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200">
+                <Download className="mr-2 h-4 w-4" />
+                Resume
               </Button>
             </a>
           </div>
         </div>
       </header>
 
-      <Section id="home" title="">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight">{PROFILE.name}</h1>
-            <h3 className="mt-4 text-2xl md:text-2xl font-bold tracking-tight leading-tight">{PROFILE.role}</h3>
-            <p className="mt-4 text-base md:text-lg text-zinc-600 dark:text-zinc-400">{PROFILE.summary}</p>
-            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
-              <Chip><MapPin className="inline-block mr-1 h-3 w-3" /> {PROFILE.location}</Chip>
-              <a href={PROFILE.contacts.github} className="inline-flex items-center gap-2 hover:opacity-80" target="_blank" rel="noreferrer"><Github size={16}/> GitHub</a>
-              <a href={PROFILE.contacts.linkedin} className="inline-flex items-center gap-2 hover:opacity-80" target="_blank" rel="noreferrer"><Linkedin size={16}/> LinkedIn</a>
-              <a href={'https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMVlCVWwzHwKcshdkpSZbqJfljmMVqvQKPjwbsgHhbTRKKdRZqDlwZfhTKBtBQLwScQnkdM'} className="inline-flex items-center gap-2 hover:opacity-80" target="_blank" rel="noreferrer"><Mail size={16}/> Email</a>
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="md:justify-self-end">
-            <div className="aspect-video w-full md:w-[520px] rounded-2xl overflow-hidden border dark:border-zinc-800 shadow">
-              <img src={Profil} alt="Cover" className="w-full h-full object-cover"/>
-            </div>
-          </motion.div>
-        </div>
-      </Section>
+      <main>
+        {/* HERO */}
+        <section id="home" className="mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 md:pb-24 md:pt-20 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-600 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+                Available for opportunities
+              </div>
 
-      <Section id="projects" title="Projects">
-        {/* Header kecil + tombol slider */}
-        <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          </p>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handlePrevProject}
-              className="h-8 w-8 rounded-full border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
-              aria-label="Previous projects"
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+                Hello, I&apos;m
+              </p>
+
+              <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                {PROFILE.name}
+              </h1>
+
+              <h2 className="mt-5 max-w-2xl text-xl font-bold leading-snug text-zinc-700 sm:text-2xl dark:text-zinc-200">
+                Information Systems Graduate <span className="text-zinc-400">•</span>{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+                  AI/ML & Data Enthusiast
+                </span>
+              </h2>
+
+              <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-600 dark:text-zinc-400">
+                {PROFILE.summary}
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="#projects"
+                  className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-zinc-900/10 transition-all hover:-translate-y-0.5 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+                >
+                  View my projects
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+                <a
+                  href={`mailto:${PROFILE.contacts.email}`}
+                  className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold shadow-sm transition-all hover:-translate-y-0.5 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+                >
+                  <Mail className="h-4 w-4" />
+                  Let&apos;s connect
+                </a>
+              </div>
+
+              <div className="mt-7 flex flex-wrap items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4" />
+                  {PROFILE.location}
+                </span>
+                <span className="h-1 w-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                <a href={PROFILE.contacts.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-zinc-900 dark:hover:text-white">
+                  <Github className="h-4 w-4" /> GitHub
+                </a>
+                <a href={PROFILE.contacts.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-zinc-900 dark:hover:text-white">
+                  <Linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7 }}
+              className="relative mx-auto w-full max-w-md lg:ml-auto"
             >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={handleNextProject}
-              className="h-8 w-8 rounded-full border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
-              aria-label="Next projects"
-            >
-              ›
-            </button>
+              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/20 via-violet-500/10 to-transparent blur-2xl" />
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white/70 p-2 shadow-2xl shadow-zinc-900/10 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/70">
+                <div className="relative overflow-hidden rounded-[1.5rem]">
+                  <img
+                    src={Profil}
+                    alt={`${PROFILE.name} profile`}
+                    className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-6 pt-20">
+                    <div className="flex items-center gap-3 text-white">
+                      <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/15 backdrop-blur">
+                        <Code2 className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold">Data • AI • Software</p>
+                        <p className="text-xs text-white/70">Building practical digital solutions</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
+        </section>
 
-        {/* 👉 Container scrollable */}
-        <div className="projects-scrollbar overflow-y-auto max-h-[480px] pr-2">
-          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6">
-            {visibleProjects.map((p, i) => (
-              <motion.div
-                key={p.title + i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-              >
-                <Card className="rounded-2xl overflow-hidden border dark:border-zinc-800 hover:shadow-lg transition-shadow">
-                  {p.images?.[0] && (
-                    <img
-                      src={p.images[0]}
-                      alt={p.title}
-                      className="aspect-video object-cover w-full"
-                    />
-                  )}
-                  <CardContent className="p-5">
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="font-semibold text-lg">{p.title}</h3>
-                      <Badge className="rounded-full">{p.year}</Badge>
-                    </div>
-                    <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                      {p.description}
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {p.stack.map((s) => (
-                        <Chip key={s}>{s}</Chip>
-                      ))}
-                    </div>
-                    {p.impact && (
-                      <ul className="mt-3 list-disc ml-5 text-sm text-zinc-700 dark:text-zinc-300">
-                        {p.impact.map((b) => (
-                          <li key={b}>{b}</li>
-                        ))}
-                      </ul>
-                    )}
-                    <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
-                      {p.links.demo && (
-                        <a
-                          href={p.links.demo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 hover:underline"
-                        >
-                          Live Demo <ExternalLink size={14} />
-                        </a>
-                      )}
-                      {p.links.repo && (
-                        <a
-                          href={p.links.repo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 hover:underline"
-                        >
-                          Source <Github size={14} />
-                        </a>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+        {/* QUICK STATS */}
+        <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              { icon: BriefcaseBusiness, value: '2+', label: 'Professional Experiences' },
+              { icon: Code2, value: `${PROJECTS.length}+`, label: 'Featured Projects' },
+              { icon: GraduationCap, value: `${CERTS.length}`, label: 'Certifications' },
+            ].map(({ icon: Icon, value, label }) => (
+              <div key={label} className="rounded-2xl border border-zinc-200 bg-white/80 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+                <div className="flex items-center gap-4">
+                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-black">{value}</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">{label}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-        </div>
-      </Section>
+        </section>
 
+        {/* PROJECTS */}
+        <section id="projects" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
+                Selected work
+              </p>
+              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Projects</h2>
+              <p className="mt-2 max-w-2xl text-zinc-500 dark:text-zinc-400">
+                A selection of projects across web development, data analytics, machine learning, and computer vision.
+              </p>
+            </div>
 
-
-      <Section id="skills" title="Skills">
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Technical Skills */}
-          <Card className="rounded-2xl border dark:border-zinc-800">
-            <CardContent className="p-6">
-              <h3 className="font-semibold">Technical</h3>
-              <div
-                className="
-                  mt-3 flex flex-wrap gap-2
-                  skills-scrollbar overflow-y-auto max-h-60 pr-2
-                "
+            <div className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                onClick={handlePrevProject}
+                aria-label="Previous projects"
+                className="grid h-10 w-10 place-items-center rounded-full border border-zinc-200 bg-white shadow-sm transition hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
               >
-                {SKILLS.tech.map((s) => (
-                  <Chip key={s}>{s}</Chip>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Soft Skills */}
-          <Card className="rounded-2xl border dark:border-zinc-800">
-            <CardContent className="p-6">
-              <h3 className="font-semibold">Soft Skills</h3>
-              <div
-                className="
-                  mt-3 flex flex-wrap gap-2
-                  skills-scrollbar overflow-y-auto max-h-60 pr-2
-                "
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextProject}
+                aria-label="Next projects"
+                className="grid h-10 w-10 place-items-center rounded-full border border-zinc-200 bg-white shadow-sm transition hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
               >
-                {SKILLS.soft.map((s) => (
-                  <Chip key={s}>{s}</Chip>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
 
+          <div className="grid gap-6 md:grid-cols-3">
+            {visibleProjects.map((project, i) => (
+              <motion.article
+                key={`${project.title}-${i}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: i * 0.08 }}
+                className="group flex flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-zinc-900/10 dark:border-zinc-800 dark:bg-zinc-900/80"
+              >
+                {project.images?.[0] && (
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={project.images[0]}
+                      alt={project.title}
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                    <Badge className="absolute right-3 top-3 rounded-full border border-white/30 bg-black/60 text-white backdrop-blur">
+                      {project.year}
+                    </Badge>
+                  </div>
+                )}
 
-      <Section id="tools" title="Tools I Use">
-        <Card className="rounded-2xl border dark:border-zinc-800">
-          <CardContent className="p-4 md:p-6">
-            <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mb-4">
-              A snapshot of tools I&apos;ve used in projects for data, ML, and dashboards.
-            </p>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-lg font-bold leading-snug">{project.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                    {project.description}
+                  </p>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-              {TOOLS.map((tool) => (
-                <div
-                  key={tool.name}
-                  className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 px-4 py-3 flex items-center gap-3 min-h-[64px]"
-                >
-                  <img 
-                    src={tool.icon} 
-                    alt={tool.name} 
-                    className="w-6 h-6 object-contain"
-                  />
-                  
-                  <div>
-                    <div className="text-sm md:text-base font-semibold text-zinc-900 dark:text-zinc-50">
-                      {tool.name}
-                    </div>
-                    {tool.group && (
-                      <div className="text-[11px] md:text-xs text-zinc-500 dark:text-zinc-400">
-                        {tool.group}
-                      </div>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-lg bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {project.impact && (
+                    <ul className="mt-5 space-y-2 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
+                      {project.impact.map((item) => (
+                        <li key={item} className="flex gap-2">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <div className="mt-auto flex gap-4 pt-6 text-sm font-semibold">
+                    {project.links.demo && (
+                      <a href={project.links.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:underline">
+                        Live Demo <ArrowUpRight className="h-4 w-4" />
+                      </a>
                     )}
+                    {project.links.repo && (
+                      <a href={project.links.repo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:underline">
+                        <Github className="h-4 w-4" /> Source
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </section>
+
+        {/* SKILLS */}
+        <section id="skills" className="border-y border-zinc-200/70 bg-white/60 dark:border-zinc-800/70 dark:bg-zinc-900/30">
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+                What I bring
+              </p>
+              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Skills</h2>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {[
+                { title: 'Technical Skills', icon: Code2, items: SKILLS.tech },
+                { title: 'Soft Skills', icon: Sparkles, items: SKILLS.soft },
+              ].map(({ title, icon: Icon, items }) => (
+                <div key={title} className="rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/70">
+                  <div className="mb-5 flex items-center gap-3">
+                    <div className="grid h-10 w-10 place-items-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-bold">{title}</h3>
+                  </div>
+                  <div className="flex max-h-64 flex-wrap gap-2 overflow-y-auto pr-2">
+                    {items.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-600 transition hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            <p className="mt-4 text-center text-xs md:text-sm text-zinc-500 dark:text-zinc-400">
-              Always open to learning new tools when the project needs it.
+        {/* TOOLS */}
+        <section id="tools" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400">
+              Tech stack
             </p>
-          </CardContent>
-        </Card>
-      </Section>
+            <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Tools I Use</h2>
+            <p className="mt-2 text-zinc-500 dark:text-zinc-400">
+              Tools I&apos;ve used for data, analytics, machine learning, dashboards, and software development.
+            </p>
+          </div>
 
-
-      <Section id="experience" title="Experience">
-        <div className="grid gap-4">
-          <Card className="rounded-2xl border dark:border-zinc-800">
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-
-                {/* TEXT */}
-                <div className="md:col-span-2">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-semibold">
-                      Data Intern – PT. Paragon Pratama Teknologi
-                    </h3>
-                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                      Feb 2023 – Jun 2023
-                    </span>
-                  </div>
-
-                  <ul className="mt-3 list-disc ml-5 text-sm text-zinc-700 dark:text-zinc-300">
-                    <li>Cleaned a dataset of 13,000+ records</li>
-                    <li>Imported GeoJSON into a spatial DBMS</li>
-                    <li>Created 1,000 polygon areas using GIS software</li>
-                  </ul>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {TOOLS.map((tool) => (
+              <div
+                key={tool.name}
+                className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900/70 dark:hover:border-zinc-700"
+              >
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-zinc-100 p-2 dark:bg-zinc-800">
+                  <img src={tool.icon} alt={tool.name} className="h-6 w-6 object-contain transition-transform group-hover:scale-110" />
                 </div>
-                <div className="md:col-span-2">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-semibold">
-                      Data Annatator – PT. Dalligent Solusi Indonesia
-                    </h3>
-                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                      Feb 2026 – present
-                    </span>
-                  </div>
-
-                  <ul className="mt-3 list-disc ml-5 text-sm text-zinc-700 dark:text-zinc-300">
-                    <li>Annotated and labeled image/video data for an automotive automation project.</li>
-                    <li>Applied annotation guidelines to ensure accurate and consistent object labeling.</li>
-                    <li>Performed quality checks and corrected annotation errors to maintain dataset quality.</li>
-                    <li>Processed high-volume visual data while meeting accuracy and productivity targets.</li>
-                  </ul>
-                </div>
-
-                {/* CERTIFICATE IMAGE */}
-                <div className="w-full h-40 rounded-xl overflow-hidden border dark:border-zinc-700">
-                  <img
-                    src={CertMagang}
-                    alt="Certificate Data Intern Paragon"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
-
-
-      {/* EDUCATION & CERTS */}
-      <Section id="education" title="Education & Certifications">
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card className="rounded-2xl border dark:border-zinc-800">
-            <CardContent className="p-6">
-              <h3 className="font-semibold">Education</h3>
-              <div className="mt-3 space-y-3">
-                {EDUCATION.map((ed) => (
-                  <div key={ed.school} className="text-sm">
-                    <div className="font-medium">{ed.degree}</div>
-                    <div className="text-zinc-600 dark:text-zinc-400">
-                      {ed.school}
-                    </div>
-                    <div className="text-zinc-500 dark:text-zinc-400">
-                      {ed.period}
-                    </div>
-
-                    {/* 👉 Tambahkan deskripsi di sini */}
-                    {ed.description && (
-                      <div className="mt-3 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-                        {ed.description}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="rounded-2xl border dark:border-zinc-800">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-lg">Certifications</h3>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={handlePrevCert}
-                    className="h-7 w-7 rounded-full border border-zinc-300 dark:border-zinc-600 flex items-center justify-center text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                  >
-                    ‹
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNextCert}
-                    className="h-7 w-7 rounded-full border border-zinc-300 dark:border-zinc-600 flex items-center justify-center text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                  >
-                    ›
-                  </button>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold">{tool.name}</p>
+                  <p className="mt-0.5 truncate text-[11px] text-zinc-500 dark:text-zinc-400">{tool.group}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
 
-              {/* SLIDER GRID */}
-              <div className="flex flex-col gap-4">
-                {visibleCerts.map((c, i) => (
+        {/* EXPERIENCE */}
+        <section id="experience" className="border-y border-zinc-200/70 bg-zinc-100/50 dark:border-zinc-800/70 dark:bg-zinc-900/20">
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+            <div className="mb-10">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
+                Career journey
+              </p>
+              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Experience</h2>
+            </div>
+
+            <div className="relative ml-3 border-l border-zinc-300 pl-8 dark:border-zinc-700">
+              {[
+                {
+                  role: 'Data Annotator',
+                  company: 'PT. Dalligent Solusi Indonesia',
+                  period: 'Feb 2026 – Present',
+                  points: [
+                    'Annotated and labeled image/video data for an automotive automation project.',
+                    'Applied annotation guidelines to ensure accurate and consistent object labeling.',
+                    'Performed quality checks and corrected annotation errors to maintain dataset quality.',
+                    'Processed high-volume visual data while meeting accuracy and productivity targets.',
+                  ],
+                  current: true,
+                },
+                {
+                  role: 'Data Intern',
+                  company: 'PT. Paragon Pratama Teknologi',
+                  period: 'Feb 2023 – Jun 2023',
+                  points: [
+                    'Cleaned a dataset of 13,000+ records.',
+                    'Imported GeoJSON into a spatial DBMS.',
+                    'Created 1,000 polygon areas using GIS software.',
+                  ],
+                  current: false,
+                },
+              ].map((job) => (
                 <motion.div
-                  key={c.name + i}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40"
+                  key={job.company}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="relative mb-10 last:mb-0"
                 >
-                  {/* CERT IMAGE */}
-                  {c.image && (
-                    <div className="mb-3 overflow-hidden rounded-lg border dark:border-zinc-700">
-                      <img
-                        src={c.image}
-                        alt={c.name}
-                        className="
-                          
-                          object-contain bg-white
-                          mx-auto
-                          hover:scale-105 transition-transform duration-300
-                        "
-                      />
+                  <span className={`absolute -left-[41px] top-1.5 h-5 w-5 rounded-full border-4 border-zinc-100 dark:border-zinc-950 ${job.current ? 'bg-emerald-500' : 'bg-zinc-400'}`} />
+                  <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/70">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-lg font-bold">{job.role}</h3>
+                          {job.current && (
+                            <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-1 text-sm font-medium text-zinc-500 dark:text-zinc-400">{job.company}</p>
+                      </div>
+                      <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                        {job.period}
+                      </span>
                     </div>
-                  )}
 
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="font-semibold text-sm text-zinc-900 dark:text-zinc-50">
-                      {c.name}
-                    </div>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                      {c.period}
-                    </span>
+                    <ul className="mt-5 space-y-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                      {job.points.map((point) => (
+                        <li key={point} className="flex gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <p className="text-xs md:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                    {c.details}
-                  </p>
                 </motion.div>
               ))}
-
-              </div>
-            </CardContent>
-          </Card>
-
-        </div>
-      </Section>
-
-      <Section id="contact" title="Contact">
-        <Card className="rounded-2xl border dark:border-zinc-800"><CardContent className="p-6">
-          <p className="text-zinc-600 dark:text-zinc-300 text-sm md:text-base">
-            Open to entry-level roles in Software Engineering, Data, or IT Systems. Feel free to reach out — I usually reply within 24 hours.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-4 text-sm">
-            <a href={'https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMVlCVWwzHwKcshdkpSZbqJfljmMVqvQKPjwbsgHhbTRKKdRZqDlwZfhTKBtBQLwScQnkdM'} className="inline-flex items-center gap-2 hover:underline" target="_blank" rel="noreferrer"><Mail size={16}/> {PROFILE.contacts.email}</a>
-            <a href={PROFILE.contacts.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline"><Github size={16}/> GitHub</a>
-            <a href={PROFILE.contacts.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline"><Linkedin size={16}/> LinkedIn</a>
+            </div>
           </div>
-        </CardContent></Card>
-      </Section>
+        </section>
 
-      <footer className="py-10 text-center text-xs text-zinc-500 dark:text-zinc-400">
-        © {new Date().getFullYear()} {PROFILE.name}. Built with React, Tailwind, and Vite.
+        {/* EDUCATION + CERTIFICATIONS */}
+        <section id="education" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
+              Background
+            </p>
+            <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Education & Certifications</h2>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+            <div className="rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/70">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <h3 className="text-lg font-bold">Education</h3>
+              </div>
+
+              {EDUCATION.map((ed) => (
+                <div key={ed.school}>
+                  <h4 className="font-bold">{ed.degree}</h4>
+                  <p className="mt-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">{ed.school}</p>
+                  <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">{ed.period}</p>
+                  <p className="mt-5 text-sm leading-7 text-zinc-600 dark:text-zinc-400">{ed.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/70">
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold">Certifications</h3>
+                    <p className="text-xs text-zinc-500">{certIndex + 1} / {totalCerts}</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <button type="button" onClick={handlePrevCert} aria-label="Previous certification" className="grid h-9 w-9 place-items-center rounded-full border border-zinc-200 dark:border-zinc-700">
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                  <button type="button" onClick={handleNextCert} aria-label="Next certification" className="grid h-9 w-9 place-items-center rounded-full border border-zinc-200 dark:border-zinc-700">
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <motion.div
+                key={currentCert.name}
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950/40"
+              >
+                <div className="flex min-h-[250px] items-center justify-center overflow-hidden bg-white p-4 dark:bg-zinc-900">
+                  <img
+                    src={currentCert.image}
+                    alt={currentCert.name}
+                    className="max-h-64 w-full object-contain transition-transform duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{currentCert.period}</p>
+                  <h4 className="mt-2 font-bold leading-6">{currentCert.name}</h4>
+                  <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{currentCert.details}</p>
+                </div>
+              </motion.div>
+
+              <div className="mt-5 flex gap-1.5">
+                {CERTS.map((cert, index) => (
+                  <button
+                    key={cert.name}
+                    type="button"
+                    aria-label={`Show certification ${index + 1}`}
+                    onClick={() => setCertIndex(index)}
+                    className={`h-1.5 flex-1 rounded-full transition-all ${index === certIndex ? 'bg-zinc-900 dark:bg-white' : 'bg-zinc-200 dark:bg-zinc-700'}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <section id="contact" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-[2rem] bg-zinc-900 p-8 text-white shadow-2xl sm:p-12 dark:bg-white dark:text-zinc-900">
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
+            <div className="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60 dark:text-zinc-500">Get in touch</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Let&apos;s build something useful.</h2>
+                <p className="mt-4 max-w-2xl leading-7 text-white/65 dark:text-zinc-600">
+                  Open to entry-level opportunities in Data, AI/ML, Software Engineering, and IT Systems.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={`mailto:${PROFILE.contacts.email}`}
+                  className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-zinc-900 transition hover:bg-zinc-100 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800"
+                >
+                  <Mail className="h-4 w-4" />
+                  Email me
+                </a>
+                <a
+                  href={PROFILE.contacts.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3 text-sm font-bold transition hover:bg-white/10 dark:border-zinc-300 dark:hover:bg-zinc-100"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-zinc-200 py-8 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
+        © {new Date().getFullYear()} {PROFILE.name}. Built with React, Tailwind CSS, and Vite.
       </footer>
     </div>
   )
