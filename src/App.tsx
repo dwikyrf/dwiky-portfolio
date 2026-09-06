@@ -15,6 +15,11 @@ import Symphonia from './assets/symphonia.JPG'
 import Tailwind from './assets/tailwind.jpeg'
 import YOLO from './assets/yolo.jpeg'
 import GadingBattery from './assets/gading-battery.JPG'
+import CertDicoding from './assets/CertDicoding.jpg'
+import CertBinar from './assets/CertBinar.jpg'
+import CertIDCamp from './assets/CertIDCamp.jpg'
+import CertOrbit from './assets/CertOrbit.jpg'
+import CertMagang from './assets/CertMagang.jpg'
 
 
 
@@ -24,7 +29,7 @@ const PROFILE = {
   role: 'Information Systems Graduate • AI/ML & Data Enthusiast',
   location: 'Jakarta, Indonesia',
   summary:
-    'Fresh graduate focused on AI/ML and data. Hands-on with model building, data cleaning, and deployment; eager to apply skills to real business cases.',
+    'I am an Information Systems graduate from Andalas University with a strong interest in data, analytics, and technology. I have developed skills in data analysis, programming, database management, and information systems throughout my academic and professional journey. I currently work as a Data Annotator on an automotive automation project, where I work with visual data and annotation processes to support machine learning and computer vision applications. This experience has strengthened my attention to detail, data quality control, consistency, problem-solving, and understanding of how data is prepared and processed for AI systems. In addition, I have hands-on experience with Python, SQL, Excel, Looker Studio, Power BI, Google BigQuery, and various data and programming tools. I also have experience working on computer vision and machine learning projects, including object detection using YOLO. I am continuously developing my skills in Data Analytics, Data Engineering, Machine Learning, and AI Engineer. I am interested in opportunities where I can contribute to data-driven projects, solve real-world problems, and continue growing as a data professional.',
   contacts: {
     email: 'dwikyrf@gmail.com',
     github: 'https://github.com/dwikyrf',
@@ -160,25 +165,29 @@ const CERTS = [
     name: "Pelatihan FGA DTS – Machine Learning Developer x IBM & Dicoding",
     details:
       "Belajar Dasar Visualisasi Data, Data Visualization with Python, Memulai Pemrograman Dengan Python, Data Analysis with Python, Belajar Machine Learning untuk Pemula, Introduction to AI, Belajar Pengembangan Machine Learning.",
-  },
+    image: CertDicoding,
+    },
   {
     period: "Mar 2023 – Apr 2023",
     name: "Pelatihan FGA DTS – Data Science & Binar Academy",
     details:
       "Basic Database, SQL, Data Storytelling and Visualization, BI Tools, Konsep Statistika, Python Programming Fundamental, Introduction to Machine Learning, Data Preprocessing, Classification Analysis.",
-  },
+   image: CertBinar,
+    },
   {
     period: "Sep 2023 – Dec 2023",
     name: "IDCAMP – Data Scientist & Dicoding",
     details:
       "Belajar Dasar Data Science, Belajar Dasar Structured Query Language (SQL), Memulai Pemrograman Dengan Python, Belajar Analysis Data Dengan Python, Belajar Machine Learning untuk Pemula.",
-  },
+    image: CertIDCamp,
+    },
   {
     period: "Feb 2024 – Jun 2024",
     name: "Orbit Future Academy – AI For Jobs",
     details:
       "Logika dan Konsep Teknologi AI, Siklus Proyek AI, Pemrograman Python, Metode Penelitian AI, ChatGPT, Etika Profesi & Keterampilan Perusahaan, Financial Literacy, Entrepreneurship, Job Readiness, dan Proyek Akhir.",
-  },
+    image: CertOrbit,
+    },
 ]
 
 
@@ -264,7 +273,6 @@ const PROJECTS = [
       'Provided an admin dashboard with charts, PDF/Excel export, and order/transaction monitoring',
     ],
     links: {
-      demo: 'https://symphonia.siunand.my.id/',
       repo: 'https://github.com/dwikyrf/Symphonia',
     },
     images: [Symphonia],
@@ -277,7 +285,6 @@ const PROJECTS = [
       'Built a computer vision model to classify tomato leaf diseases using YOLOv5; deployed the model to a website and managed hosting.',
     impact: ['End-to-end ML pipeline from data to deployment'],
     links: {
-      demo: 'https://tomato-vision.up.railway.app/',
       repo: 'https://github.com/dwikyrf/tomato-vision',
     },
     images: [TomatoVision],
@@ -398,7 +405,7 @@ export default function App() {
   }
   
   const [certIndex, setCertIndex] = useState(0)
-const visibleCertCount = 2
+const visibleCertCount = 1
 const totalCerts = CERTS.length
 
 const visibleCerts = React.useMemo(() => {
@@ -470,7 +477,6 @@ const handleNextCert = () => {
         {/* Header kecil + tombol slider */}
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Selected projects — showing 3 at a time.
           </p>
           <div className="flex items-center gap-2">
             <button
@@ -645,19 +651,60 @@ const handleNextCert = () => {
 
       <Section id="experience" title="Experience">
         <div className="grid gap-4">
-          <Card className="rounded-2xl border dark:border-zinc-800"><CardContent className="p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="font-semibold">Data Intern – PT. Paragon Pratama Teknologi</h3>
-              <span className="text-sm text-zinc-500 dark:text-zinc-400">Feb 2023 – Jun 2023</span>
-            </div>
-            <ul className="mt-3 list-disc ml-5 text-sm text-zinc-700 dark:text-zinc-300">
-              <li>Cleaned a dataset of 13,000+ records</li>
-              <li>Imported GeoJSON into a spatial DBMS</li>
-              <li>Created 1,000 polygon areas using GIS software</li>
-            </ul>
-          </CardContent></Card>
+          <Card className="rounded-2xl border dark:border-zinc-800">
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+
+                {/* TEXT */}
+                <div className="md:col-span-2">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="font-semibold">
+                      Data Intern – PT. Paragon Pratama Teknologi
+                    </h3>
+                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      Feb 2023 – Jun 2023
+                    </span>
+                  </div>
+
+                  <ul className="mt-3 list-disc ml-5 text-sm text-zinc-700 dark:text-zinc-300">
+                    <li>Cleaned a dataset of 13,000+ records</li>
+                    <li>Imported GeoJSON into a spatial DBMS</li>
+                    <li>Created 1,000 polygon areas using GIS software</li>
+                  </ul>
+                </div>
+                <div className="md:col-span-2">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="font-semibold">
+                      Data Annatator – PT. Dalligent Solusi Indonesia
+                    </h3>
+                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      Feb 2026 – present
+                    </span>
+                  </div>
+
+                  <ul className="mt-3 list-disc ml-5 text-sm text-zinc-700 dark:text-zinc-300">
+                    <li>Annotated and labeled image/video data for an automotive automation project.</li>
+                    <li>Applied annotation guidelines to ensure accurate and consistent object labeling.</li>
+                    <li>Performed quality checks and corrected annotation errors to maintain dataset quality.</li>
+                    <li>Processed high-volume visual data while meeting accuracy and productivity targets.</li>
+                  </ul>
+                </div>
+
+                {/* CERTIFICATE IMAGE */}
+                <div className="w-full h-40 rounded-xl overflow-hidden border dark:border-zinc-700">
+                  <img
+                    src={CertMagang}
+                    alt="Certificate Data Intern Paragon"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </Section>
+
 
       {/* EDUCATION & CERTS */}
       <Section id="education" title="Education & Certifications">
@@ -713,26 +760,43 @@ const handleNextCert = () => {
               {/* SLIDER GRID */}
               <div className="flex flex-col gap-4">
                 {visibleCerts.map((c, i) => (
-                  <motion.div
-                    key={c.name + i}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="font-semibold text-sm text-zinc-900 dark:text-zinc-50">
-                        {c.name}
-                      </div>
-                      <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                        {c.period}
-                      </span>
+                <motion.div
+                  key={c.name + i}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40"
+                >
+                  {/* CERT IMAGE */}
+                  {c.image && (
+                    <div className="mb-3 overflow-hidden rounded-lg border dark:border-zinc-700">
+                      <img
+                        src={c.image}
+                        alt={c.name}
+                        className="
+                          
+                          object-contain bg-white
+                          mx-auto
+                          hover:scale-105 transition-transform duration-300
+                        "
+                      />
                     </div>
+                  )}
 
-                    <p className="text-xs md:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                      {c.details}
-                    </p>
-                  </motion.div>
-                ))}
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-semibold text-sm text-zinc-900 dark:text-zinc-50">
+                      {c.name}
+                    </div>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                      {c.period}
+                    </span>
+                  </div>
+
+                  <p className="text-xs md:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                    {c.details}
+                  </p>
+                </motion.div>
+              ))}
+
               </div>
             </CardContent>
           </Card>
