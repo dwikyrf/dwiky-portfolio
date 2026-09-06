@@ -457,7 +457,7 @@ export default function App() {
             >
               <Button
                 type="button"
-                className="rounded-xl bg-zinc-900 text-sm text-white shadow-lg shadow-zinc-900/10 transition-transform group-hover:scale-105 dark:bg-white dark:text-zinc-900"
+                className="rounded-xl bg-zinc-900 text-sm text-white shadow-lg shadow-zinc-900/10 transition-all duration-200 hover:bg-zinc-800 group-hover:scale-105 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:shadow-none"
               >
                 <Download className="mr-2 h-4 w-4" />
                 Resume
