@@ -38,6 +38,10 @@ const PROFILE = {
       'https://drive.google.com/file/d/1loHnqpuA7fgqPn2F_exDeao_kpUFqswo/view?usp=sharing',
   },
 }
+// CONTACT / RESUME HELPERS
+// Gmail compose works even when the visitor has no desktop mail application configured.
+const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE.contacts.email)}`
+
 const TOOLS = [
   { 
     name: "Python", 
@@ -447,10 +451,14 @@ export default function App() {
             <a
               href={PROFILE.contacts.resumeUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              aria-label="Open resume"
               className="hidden sm:block"
             >
-              <Button className="rounded-xl bg-zinc-900 px-4 shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200">
+              <Button
+                type="button"
+                className="rounded-xl bg-zinc-900 px-4 shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+              >
                 <Download className="mr-2 h-4 w-4" />
                 Resume
               </Button>
@@ -501,11 +509,14 @@ export default function App() {
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
                 <a
-                  href={`mailto:${PROFILE.contacts.email}`}
+                  href={GMAIL_COMPOSE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold shadow-sm transition-all hover:-translate-y-0.5 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
                 >
                   <Mail className="h-4 w-4" />
                   Let&apos;s connect
+                  <ExternalLink className="h-3.5 w-3.5 opacity-60" />
                 </a>
               </div>
 
@@ -925,11 +936,14 @@ export default function App() {
 
               <div className="flex flex-wrap gap-3">
                 <a
-                  href={`mailto:${PROFILE.contacts.email}`}
+                  href={GMAIL_COMPOSE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-zinc-900 transition hover:bg-zinc-100 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800"
                 >
                   <Mail className="h-4 w-4" />
                   Email me
+                  <ExternalLink className="h-3.5 w-3.5 opacity-60" />
                 </a>
                 <a
                   href={PROFILE.contacts.linkedin}
